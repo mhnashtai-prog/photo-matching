@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>INTUITY — 12 People</title>
+  <style>
+    :root{
+      --bg1:#0b0b0d;--bg2:#1a1a1c;--accent:#ff6a00;--card-w:220px;--card-h:280px;--blur:10px;--text:#e6e6e6;
+    }
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(135deg,var(--bg1) 0%, #111114 35%, var(--bg2) 100%);color:var(--text);display:flex;flex-direction:column;align-items:center;min-height:100vh;-webkit-font-smoothing:antialiased}
+    header{margin:30px 0;text-align:center}
+    h1{margin:0;font-weight:700;letter-spacing:3px;color:var(--accent);font-size:34px}
+    h2{margin:8px 0 0 0;font-weight:500;font-size:16px;color:#aaa}
+    .instructions{text-align:center;margin-bottom:20px;font-size:15px;color:#bbb}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto}
+    .card{width:100%;max-width:var(--card-w);height:var(--card-h);position:relative;perspective:1400px;cursor:pointer;margin:auto}
+    .inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 700ms cubic-bezier(.2,.9,.3,1);border-radius:20px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:12px 12px 30px rgba(0,0,0,0.7),-8px -8px 20px rgba(255,255,255,0.02)}
+    .card.flipped .inner{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;backface-visibility:hidden}
+    .front img{width:100px;height:100px;border-radius:50%;object-fit:cover;box-shadow:inset 3px 3px 8px rgba(0,0,0,0.6)}
+    .name{font-weight:700;font-size:14px;margin-top:10px}
+    .back{transform:rotateY(180deg);gap:10px}
+    .reveal{font-size:20px;font-weight:800;color:var(--accent);text-transform:uppercase}
+    footer{margin:30px 0;display:flex;flex-direction:column;align-items:center;gap:10px}
+    select{font-size:18px;padding:14px 20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));color:var(--text);border-radius:16px;border:1px solid rgba(255,255,255,0.08);box-shadow:inset -4px -4px 8px rgba(255,255,255,0.05), inset 6px 6px 14px rgba(0,0,0,0.6);backdrop-filter:blur(var(--blur));font-weight:600;transition:all 0.3s ease;}
+    select:hover, select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 12px var(--accent), inset -4px -4px 8px rgba(255,255,255,0.05), inset 6px 6px 14px rgba(0,0,0,0.6);}
+    select option{background-color:#1a1a1c;color:#ffffff;font-weight:600;padding:10px;}
+    button.reset{padding:10px 20px;font-size:16px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;transition:background 0.3s}
+    button.reset:hover{background:#ff8533}
+    .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
+    .modal-overlay.active{opacity:1;pointer-events:auto}
+    .modal-card{width:300px;height:380px;perspective:1400px;position:relative;transform:scale(0.8);opacity:0;transition:transform 0.4s ease, opacity 0.4s ease;}
+    .modal-overlay.active .modal-card{transform:scale(1);opacity:1;}
+    .modal-card .inner{width:100%;height:100%;}
+    .close-btn{position:absolute;top:-40px;right:0;background:var(--accent);color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold;}
+    .feedback{color:#ff4d4d;font-weight:600;text-align:center;margin-top:8px;display:none;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>INTUITY</h1>
+    <h2>Intuitive & Immersive Learning</h2>
+  </header>
+
+  <div class="instructions">Pick an adjective from the menu, then click the matching person.</div>
+
+  <div class="grid" id="cardGrid"></div>
+
+  <footer>
+    <select id="adjectiveSelect">
+      <option value="">Select an adjective...</option>
+    </select>
+    <button class="reset" id="resetBtn">Reset</button>
+    <div class="feedback" id="feedback"></div>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card" id="modalCard"></div>
+    <div class="close-btn" id="closeBtn">Close ✖</div>
+  </div>
+
+<script>
+const people=[
+  {name:"Steve Jobs",adjective:"Visionary",photo:"https://upload.wikimedia.org/wikipedia/commons/8/8d/Steve_Jobs_Headshot_2010-CROP2.jpg"},
+  {name:"Albert Einstein",adjective:"Genius",photo:"https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg"},
+  {name:"Nelson Mandela",adjective:"Resilient",photo:"https://upload.wikimedia.org/wikipedia/commons/0/0d/Nelson_Mandela-2008_%28edit%29.jpg"},
+  {name:"Mahatma Gandhi",adjective:"Humble",photo:"https://upload.wikimedia.org/wikipedia/commons/d/d1/Portrait_Gandhi.jpg"},
+  {name:"Marie Curie",adjective:"Brilliant",photo:"https://upload.wikimedia.org/wikipedia/commons/7/79/Marie_Curie_c1920.jpg"},
+  {name:"Martin Luther King Jr.",adjective:"Inspiring",photo:"https://upload.wikimedia.org/wikipedia/commons/0/05/Martin_Luther_King%2C_Jr..jpg"},
+  {name:"Leonardo da Vinci",adjective:"Creative",photo:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Leonardo_self.jpg"},
+  {name:"Mother Teresa",adjective:"Compassionate",photo:"https://upload.wikimedia.org/wikipedia/commons/0/0b/Mother_Teresa_1.jpg"},
+  {name:"Abraham Lincoln",adjective:"Honest",photo:"https://upload.wikimedia.org/wikipedia/commons/a/a0/Abraham_Lincoln_O-77_matte_collodion_print.jpg"},
+  {name:"Frida Kahlo",adjective:"Bold",photo:"https://upload.wikimedia.org/wikipedia/commons/1/1e/Frida_Kahlo_%28self_portrait%29.jpg"},
+  {name:"William Shakespeare",adjective:"Expressive",photo:"https://upload.wikimedia.org/wikipedia/commons/a/a2/Shakespeare.jpg"},
+  {name:"Taylor Swift",adjective:"Talented",photo:"https://upload.wikimedia.org/wikipedia/commons/f/f2/Taylor_Swift_2019.png"}
+];
+
+const grid=document.getElementById('cardGrid');
+const select=document.getElementById('adjectiveSelect');
+const modalOverlay=document.getElementById('modalOverlay');
+const modalCard=document.getElementById('modalCard');
+const closeBtn=document.getElementById('closeBtn');
+const feedback=document.getElementById('feedback');
+const resetBtn=document.getElementById('resetBtn');
+
+function renderCards(){
+  grid.innerHTML='';
+  people.forEach(p=>{
+    const card=document.createElement('div');card.className='card';
+    card.innerHTML=`<div class="inner"><div class="face front"><img src="${p.photo}" alt="${p.name}" title="${p.name}"><div class="name">${p.name}</div></div><div class="face back"><div class="reveal">${p.adjective}</div></div></div>`;
+    card.addEventListener('click',()=>{
+      const sel=select.value;
+      if(sel===p.adjective){
+        feedback.style.display='none';
+        showModal(p);
+      } else {
+        feedback.textContent="Try again!";
+        feedback.style.display='block';
+        card.style.border="2px solid #ff4d4d";
+        setTimeout(()=>{card.style.border="none";},800);
+      }
+    });
+    grid.appendChild(card);
+  });
+  updateDropdown();
+}
+
+function updateDropdown(){
+  select.innerHTML='<option value="">Select an adjective...</option>';
+  people.forEach(p=>{
+    const opt=document.createElement('option');opt.value=p.adjective;opt.textContent=p.adjective;select.appendChild(opt);
+  });
+}
+
+function showModal(person){
+  modalCard.innerHTML=`<div class="inner flipped"><div class="face front"><img src="${person.photo}" alt="${person.name}"><div class="name">${person.name}</div></div><div class="face back"><div class="reveal">${person.adjective}</div></div></div>`;
+  modalOverlay.classList.add('active');
+}
+
+modalOverlay.addEventListener('click',()=>{
+  modalOverlay.classList.remove('active');
+});
+closeBtn.addEventListener('click',()=>{
+  modalOverlay.classList.remove('active');
+});
+
+resetBtn.addEventListener('click',()=>{
+  select.value="";
+  feedback.style.display='none';
+});
+
+renderCards();
+</script>
+</body>
+</html>
