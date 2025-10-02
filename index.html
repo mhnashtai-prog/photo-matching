@@ -15,24 +15,22 @@
     .instructions{text-align:center;margin-bottom:20px;font-size:15px;color:#bbb}
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto}
     .card{width:100%;max-width:var(--card-w);height:var(--card-h);position:relative;perspective:1400px;cursor:pointer;margin:auto}
-    .inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 700ms cubic-bezier(.2,.9,.3,1);border-radius:20px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:12px 12px 30px rgba(0,0,0,0.7),-8px -8px 20px rgba(255,255,255,0.02)}
-    .card.flipped .inner{transform:rotateY(180deg)}
+    .inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.6s; border-radius:20px;overflow:hidden;background:rgba(255,255,255,0.05);box-shadow:inset -4px -4px 8px rgba(255,255,255,0.05), inset 6px 6px 14px rgba(0,0,0,0.6);}
     .face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;backface-visibility:hidden}
-    .front img{width:100px;height:100px;border-radius:50%;object-fit:cover;box-shadow:inset 3px 3px 8px rgba(0,0,0,0.6)}
+    .front img{width:100px;height:100px;border-radius:50%;object-fit:cover;box-shadow:0 0 10px rgba(0,0,0,0.6)}
     .name{font-weight:700;font-size:14px;margin-top:10px}
     .back{transform:rotateY(180deg);gap:10px}
     .reveal{font-size:20px;font-weight:800;color:var(--accent);text-transform:uppercase}
     footer{margin:30px 0;display:flex;flex-direction:column;align-items:center;gap:10px}
-    select{font-size:18px;padding:14px 20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));color:var(--text);border-radius:16px;border:1px solid rgba(255,255,255,0.08);box-shadow:inset -4px -4px 8px rgba(255,255,255,0.05), inset 6px 6px 14px rgba(0,0,0,0.6);backdrop-filter:blur(var(--blur));font-weight:600;transition:all 0.3s ease;}
+    select{font-size:18px;padding:14px 20px;background:rgba(255,255,255,0.05);color:var(--text);border-radius:16px;border:1px solid rgba(255,255,255,0.08);box-shadow:inset -4px -4px 8px rgba(255,255,255,0.05), inset 6px 6px 14px rgba(0,0,0,0.6);backdrop-filter:blur(var(--blur));font-weight:600;transition:all 0.3s ease;}
     select:hover, select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 12px var(--accent), inset -4px -4px 8px rgba(255,255,255,0.05), inset 6px 6px 14px rgba(0,0,0,0.6);}
-    select option{background-color:#1a1a1c;color:#ffffff;font-weight:600;padding:10px;}
     button.reset{padding:10px 20px;font-size:16px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;transition:background 0.3s}
     button.reset:hover{background:#ff8533}
     .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
     .modal-overlay.active{opacity:1;pointer-events:auto}
     .modal-card{width:300px;height:380px;perspective:1400px;position:relative;transform:scale(0.8);opacity:0;transition:transform 0.4s ease, opacity 0.4s ease;}
     .modal-overlay.active .modal-card{transform:scale(1);opacity:1;}
-    .modal-card .inner{width:100%;height:100%;}
+    .modal-card .inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.6s;}
     .close-btn{position:absolute;top:-40px;right:0;background:var(--accent);color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:bold;}
     .feedback{color:#ff4d4d;font-weight:600;text-align:center;margin-top:8px;display:none;}
   </style>
@@ -87,7 +85,8 @@ const resetBtn=document.getElementById('resetBtn');
 function renderCards(){
   grid.innerHTML='';
   people.forEach(p=>{
-    const card=document.createElement('div');card.className='card';
+    const card=document.createElement('div');
+    card.className='card';
     card.innerHTML=`<div class="inner"><div class="face front"><img src="${p.photo}" alt="${p.name}" title="${p.name}"><div class="name">${p.name}</div></div><div class="face back"><div class="reveal">${p.adjective}</div></div></div>`;
     card.addEventListener('click',()=>{
       const sel=select.value;
@@ -109,17 +108,22 @@ function renderCards(){
 function updateDropdown(){
   select.innerHTML='<option value="">Select an adjective...</option>';
   people.forEach(p=>{
-    const opt=document.createElement('option');opt.value=p.adjective;opt.textContent=p.adjective;select.appendChild(opt);
+    const opt=document.createElement('option');
+    opt.value=p.adjective;
+    opt.textContent=p.adjective;
+    select.appendChild(opt);
   });
 }
 
 function showModal(person){
-  modalCard.innerHTML=`<div class="inner flipped"><div class="face front"><img src="${person.photo}" alt="${person.name}"><div class="name">${person.name}</div></div><div class="face back"><div class="reveal">${person.adjective}</div></div></div>`;
+  modalCard.innerHTML=`<div class="inner" style="transform:rotateY(180deg)"><div class="face front"><img src="${person.photo}" alt="${person.name}"><div class="name">${person.name}</div></div><div class="face back"><div class="reveal">${person.adjective}</div></div></div>`;
   modalOverlay.classList.add('active');
 }
 
-modalOverlay.addEventListener('click',()=>{
-  modalOverlay.classList.remove('active');
+modalOverlay.addEventListener('click',(e)=>{
+  if(e.target===modalOverlay){
+    modalOverlay.classList.remove('active');
+  }
 });
 closeBtn.addEventListener('click',()=>{
   modalOverlay.classList.remove('active');
