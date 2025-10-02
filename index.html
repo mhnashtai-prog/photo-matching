@@ -22,23 +22,23 @@
     
     header {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2.25rem;
       font-weight: 800;
       background: linear-gradient(135deg, #ff6b35 0%, #ffa050 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.15rem;
     }
     .subtitle {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       color: #94a3b8;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.1rem;
     }
     .author {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #64748b;
     }
     
@@ -385,29 +385,29 @@
   <script>
     const cards = [
       {name: "Nelson Mandela", adjective: "resilient", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Nelson_Mandela_1994.jpg/440px-Nelson_Mandela_1994.jpg"},
-      {name: "Taylor Swift", adjective: "talented", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/191125_Taylor_Swift_at_the_2019_American_Music_Awards_%28cropped%29.png/440px-191125_Taylor_Swift_at_the_2019_American_Music_Awards_%28cropped%29.png"},
-      {name: "Winston Churchill", adjective: "articulate", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Sir_Winston_Churchill_-_19086236948.jpg/440px-Sir_Winston_Churchill_-_19086236948.jpg"},
+      {name: "Taylor Swift", adjective: "creative", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/191125_Taylor_Swift_at_the_2019_American_Music_Awards_%28cropped%29.png/440px-191125_Taylor_Swift_at_the_2019_American_Music_Awards_%28cropped%29.png"},
+      {name: "Winston Churchill", adjective: "determined", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Sir_Winston_Churchill_-_19086236948.jpg/440px-Sir_Winston_Churchill_-_19086236948.jpg"},
       {name: "Steve Jobs", adjective: "innovative", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Steve_Jobs_Headshot_2010-CROP2.jpg/440px-Steve_Jobs_Headshot_2010-CROP2.jpg"},
-      {name: "Malala Yousafzai", adjective: "fearless", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Malala_Yousafzai_at_Girl_Summit_2014.jpg/440px-Malala_Yousafzai_at_Girl_Summit_2014.jpg"},
-      {name: "Leonardo da Vinci", adjective: "visionary", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Francesco_Melzi_-_Portrait_of_Leonardo.png/440px-Francesco_Melzi_-_Portrait_of_Leonardo.png"},
+      {name: "Malala Yousafzai", adjective: "courageous", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Malala_Yousafzai_at_Girl_Summit_2014.jpg/440px-Malala_Yousafzai_at_Girl_Summit_2014.jpg"},
+      {name: "Leonardo da Vinci", adjective: "versatile", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Francesco_Melzi_-_Portrait_of_Leonardo.png/440px-Francesco_Melzi_-_Portrait_of_Leonardo.png"},
       {name: "Mother Teresa", adjective: "compassionate", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Mother_Teresa_1.jpg/440px-Mother_Teresa_1.jpg"},
       {name: "Albert Einstein", adjective: "brilliant", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/440px-Albert_Einstein_Head.jpg"},
       {name: "Rosa Parks", adjective: "courageous", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Rosaparks.jpg/440px-Rosaparks.jpg"},
-      {name: "Thomas Edison", adjective: "determined", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Thomas_Edison2.jpg/440px-Thomas_Edison2.jpg"},
-      {name: "Martin Luther King Jr.", adjective: "charismatic", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Martin_Luther_King%2C_Jr..jpg/440px-Martin_Luther_King%2C_Jr..jpg"},
-      {name: "Serena Williams", adjective: "disciplined", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Serena_Williams_at_2013_US_Open.jpg/440px-Serena_Williams_at_2013_US_Open.jpg"},
-      {name: "Elon Musk", adjective: "visionary", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/440px-Elon_Musk_Royal_Society_%28crop2%29.jpg"},
-      {name: "Oprah Winfrey", adjective: "compassionate", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Oprah_Winfrey_at_2011_TCA.jpg/440px-Oprah_Winfrey_at_2011_TCA.jpg"},
-      {name: "Marie Curie", adjective: "curious", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/440px-Marie_Curie_c._1920s.jpg"},
-      {name: "Amelia Earhart", adjective: "fearless", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra%2C_small.jpg/440px-Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra%2C_small.jpg"},
-      {name: "Jane Goodall", adjective: "thoughtful", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Jane_Goodall_2015.jpg/440px-Jane_Goodall_2015.jpg"},
-      {name: "Pablo Picasso", adjective: "creative", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Portrait_de_Picasso%2C_1908.jpg/440px-Portrait_de_Picasso%2C_1908.jpg"},
-      {name: "Mahatma Gandhi", adjective: "humble", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/440px-Mahatma-Gandhi%2C_studio%2C_1931.jpg"},
-      {name: "Buddha", adjective: "wise", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Tian_Tan_Buddha_by_Beria.jpg/440px-Tian_Tan_Buddha_by_Beria.jpg"},
-      {name: "Galileo Galilei", adjective: "curious", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg/440px-Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg"},
-      {name: "William Shakespeare", adjective: "expressive", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/440px-Shakespeare.jpg"},
-      {name: "Cristiano Ronaldo", adjective: "relentless", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Cristiano_Ronaldo_-_Portugal_vs._Argentina%2C_9th_February_2011_%283%29_%28cropped%29.jpg/440px-Cristiano_Ronaldo_-_Portugal_vs._Argentina%2C_9th_February_2011_%283%29_%28cropped%29.jpg"},
-      {name: "Frida Kahlo", adjective: "daring", photo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg/440px-Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg"}
+      {name: "Thomas Edison", adjective: "persistent", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Thomas_Edison2.jpg/440px-Thomas_Edison2.jpg"},
+      {name: "Martin Luther King Jr.", adjective: "inspiring", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Martin_Luther_King%2C_Jr..jpg/440px-Martin_Luther_King%2C_Jr..jpg"},
+      {name: "Serena Williams", adjective: "powerful", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Serena_Williams_at_2013_US_Open.jpg/440px-Serena_Williams_at_2013_US_Open.jpg"},
+      {name: "Elon Musk", adjective: "ambitious", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/440px-Elon_Musk_Royal_Society_%28crop2%29.jpg"},
+      {name: "Oprah Winfrey", adjective: "influential", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Oprah_Winfrey_at_2011_TCA.jpg/440px-Oprah_Winfrey_at_2011_TCA.jpg"},
+      {name: "Marie Curie", adjective: "pioneering", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Marie_Curie_c._1920s.jpg/440px-Marie_Curie_c._1920s.jpg"},
+      {name: "Amelia Earhart", adjective: "adventurous", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra%2C_small.jpg/440px-Amelia_Earhart_standing_under_nose_of_her_Lockheed_Model_10-E_Electra%2C_small.jpg"},
+      {name: "Jane Goodall", adjective: "dedicated", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Jane_Goodall_2015.jpg/440px-Jane_Goodall_2015.jpg"},
+      {name: "Pablo Picasso", adjective: "innovative", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Portrait_de_Picasso%2C_1908.jpg/440px-Portrait_de_Picasso%2C_1908.jpg"},
+      {name: "Mahatma Gandhi", adjective: "peaceful", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Mahatma-Gandhi%2C_studio%2C_1931.jpg/440px-Mahatma-Gandhi%2C_studio%2C_1931.jpg"},
+      {name: "Buddha", adjective: "enlightened", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Tian_Tan_Buddha_by_Beria.jpg/440px-Tian_Tan_Buddha_by_Beria.jpg"},
+      {name: "Galileo Galilei", adjective: "observant", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg/440px-Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg"},
+      {name: "William Shakespeare", adjective: "poetic", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/440px-Shakespeare.jpg"},
+      {name: "Cristiano Ronaldo", adjective: "athletic", photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Cristiano_Ronaldo_-_Portugal_vs._Argentina%2C_9th_February_2011_%283%29_%28cropped%29.jpg/440px-Cristiano_Ronaldo_-_Portugal_vs._Argentina%2C_9th_February_2011_%283%29_%28cropped%29.jpg"},
+      {name: "Frida Kahlo", adjective: "expressive", photo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c6/Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg/440px-Frida_Kahlo%2C_by_Guillermo_Kahlo.jpg"}
     ];
 
     let current = 0;
@@ -415,23 +415,40 @@
     let correctAnswers = new Set();
     let attempts = {};
     let missedCards = new Set();
+    let cachedChoices = {};
 
     function render() {
       const c = cards[current];
-      document.getElementById('photo').src = c.photo;
-      document.getElementById('name').textContent = c.name;
+      const photoEl = document.getElementById('photo');
+      const nameEl = document.getElementById('name');
       
-      const correct = c.adjective;
-      let distractors = [];
-      while (distractors.length < 3) {
-        const adj = cards[Math.floor(Math.random() * cards.length)].adjective;
-        if (adj !== correct && !distractors.includes(adj)) distractors.push(adj);
+      if (photoEl && nameEl) {
+        photoEl.src = c.photo;
+        photoEl.alt = c.name;
+        nameEl.textContent = c.name;
       }
-      const choices = [correct, ...distractors].sort(() => Math.random() - 0.5);
+      const correct = c.adjective;
       
-      document.getElementById('adjectives').innerHTML = choices.map(adj => 
-        `<div class="adjective" onclick="select('${adj}')">${adj}</div>`
-      ).join('');
+      // Use cached choices if they exist, otherwise generate new ones
+      let choices;
+      if (cachedChoices[current]) {
+        choices = cachedChoices[current];
+      } else {
+        let distractors = [];
+        while (distractors.length < 3) {
+          const adj = cards[Math.floor(Math.random() * cards.length)].adjective;
+          if (adj !== correct && !distractors.includes(adj)) distractors.push(adj);
+        }
+        choices = [correct, ...distractors].sort(() => Math.random() - 0.5);
+        cachedChoices[current] = choices;
+      }
+      
+      const adjectivesEl = document.getElementById('adjectives');
+      if (adjectivesEl) {
+        adjectivesEl.innerHTML = choices.map(adj => 
+          `<div class="adjective" onclick="select('${adj}')">${adj}</div>`
+        ).join('');
+      }
       
       updateDots();
       updateProgress();
@@ -528,6 +545,7 @@
       correctAnswers.clear();
       attempts = {};
       missedCards.clear();
+      cachedChoices = {};
       document.getElementById('modal').classList.remove('show');
       document.getElementById('card').classList.remove('flipped');
       render();
@@ -553,7 +571,13 @@
       else if (e.key === 'r' || e.key === 'R') resetQuiz();
     });
 
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      render();
+    });
+    
     render();
   </script>
 </body>
+</html>
 </html>
