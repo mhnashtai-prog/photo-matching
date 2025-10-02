@@ -1,144 +1,307 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>INTUITY — Intuitive & Immersive Learning (Teacher + Student)</title>
+  <meta charset="UTF-8" />
+  <title>INTUITY: Intuitive & Immersive Learning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg1:#0b0b0d;--bg2:#1a1a1c;--accent:#ff6a00;--card-w:220px;--card-h:280px;--blur:10px;--text:#e6e6e6;--muted:#bfbfbf;
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #18191A, #232526 100%), #1c1c1e;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
     }
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(135deg,var(--bg1) 0%, #111114 35%, var(--bg2) 100%);color:var(--text);display:flex;flex-direction:column;align-items:center;padding:28px;gap:20px;-webkit-font-smoothing:antialiased}
-    header{width:100%;max-width:1200px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-    .brand{display:flex;flex-direction:column;gap:6px;padding:12px 18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:-8px -8px 20px rgba(255,255,255,0.01),8px 8px 30px rgba(0,0,0,0.7);backdrop-filter:blur(var(--blur))}
-    h1{margin:0;font-weight:700;letter-spacing:3px;color:var(--accent);font-size:28px}
-    h2{margin:0;font-weight:600;font-size:14px;color:var(--muted)}
-    .by{font-size:13px;color:var(--muted)}
-    .controls{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-    .mode-toggle{display:flex;gap:8px}
-    .btn{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:10px;padding:8px 12px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;font-weight:700;color:var(--text)}
-    main{width:100%;max-width:1200px;display:flex;gap:18px;align-items:flex-start}
-    .left{flex:1}
-    .right{width:360px}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-    .card{width:100%;max-width:var(--card-w);height:var(--card-h);position:relative;perspective:1400px;margin:0 auto}
-    .inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 700ms cubic-bezier(.2,.9,.3,1);border-radius:18px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:12px 12px 30px rgba(0,0,0,0.7),-8px -8px 20px rgba(255,255,255,0.02)}
-    .card.flipped .inner{transform:rotateY(180deg)}
-    .face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;backface-visibility:hidden}
-    .front .avatar{width:92px;height:92px;border-radius:50%;object-fit:cover;box-shadow:inset 3px 3px 8px rgba(0,0,0,0.6)}
-    .name{font-weight:700;font-size:14px;margin-top:10px}
-    .muted{font-size:12px;color:var(--muted)}
-    .back{transform:rotateY(180deg);gap:8px}
-    .reveal{font-size:20px;font-weight:800;color:var(--accent);text-transform:uppercase}
-    .reveal-sub{font-size:12px;color:var(--muted)}
-    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));padding:14px;border-radius:12px;box-shadow:-6px -6px 18px rgba(255,255,255,0.02),8px 8px 22px rgba(0,0,0,0.6)}
-    label{display:block;font-size:13px;margin-top:8px;color:var(--muted)}
-    input[type=text],select,button,textarea{width:100%;padding:10px;margin-top:6px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:var(--text);font-weight:600}
-    select{font-size:16px;padding:12px;background:rgba(0,0,0,0.7);color:#fff;border-radius:12px;border:1px solid rgba(255,255,255,0.15)}
-    select option{background-color:#1a1a1c;color:#ffffff;font-weight:600;padding:8px}
-    .row{display:flex;gap:8px}
-    .small{width:80px}
-    .people-list{max-height:420px;overflow:auto;margin-top:10px;display:flex;flex-direction:column;gap:8px}
-    .person-item{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;border:1px dashed rgba(255,255,255,0.02)}
-    .person-item img{width:44px;height:44px;border-radius:8px;object-fit:cover}
-    .person-name{font-weight:700}
-    .person-meta{font-size:12px;color:var(--muted)}
-    .actions{display:flex;gap:6px}
-    footer{width:100%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border-radius:12px}
-    .shake{animation:shake 500ms}
-    @keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}}
-    @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.right{width:300px}}
-    @media (max-width:640px){main{flex-direction:column}.grid{grid-template-columns:repeat(2,1fr)}.right{width:100%}}
-    @media (max-width:420px){.grid{grid-template-columns:1fr}}
+    header {
+      margin: 32px 0 10px 0;
+      text-align: center;
+    }
+    .subtitle {
+      letter-spacing: 1px;
+      font-size: 1.2rem;
+      margin-bottom: 24px;
+      color: #FF8300;
+      font-weight: normal;
+    }
+    .card-container {
+      width: 350px;
+      height: 230px;
+      perspective: 1500px;
+      position: relative;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      width: 98%;
+      height: 95%;
+      background: rgba(40,40,43, 0.5);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.04);
+      position: absolute;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.6s;
+      z-index: 5;
+      overflow: hidden;
+    }
+    .card.flipped {
+      transform: rotateY(180deg);
+      background: rgba(40,40,43, 0.8);
+      color: #FF8300;
+    }
+    .card .photo {
+      width: 78px;
+      height: 78px;
+      border-radius: 56px;
+      margin-bottom: 20px;
+      object-fit: cover;
+      background: #18191A;
+      border: 2px solid #212226EE;
+    }
+    .card .name {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .nav-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-top: 18px;
+    }
+    .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #232526;
+      border: 1.5px solid #FF8300;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .dot.active {
+      background: #FF8300;
+      opacity: 1;
+    }
+    .arrows {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 12px 0;
+      gap: 24px;
+    }
+    .arrow {
+      color: #FF8300;
+      font-size: 32px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .adjectives {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 32px;
+      margin-bottom: 26px;
+    }
+    .adjective {
+      padding: 14px 28px;
+      background: rgba(43,43,46,0.6);
+      border-radius: 18px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border: 2px solid #222;
+      transition: 
+        background 0.3s,
+        color 0.3s,
+        border 0.3s;
+    }
+    .adjective.correct {
+      background: #FF8300;
+      color: #212226;
+      border: 2px solid #FF8300;
+      pointer-events: none;
+      transition: background 0.4s, color 0.4s;
+    }
+    .adjective.wrong {
+      background: #bb211a;
+      color: #fff;
+      border: 2px solid #bb211a;
+      pointer-events: none;
+    }
+    .edit-mode {
+      margin: 24px 0;
+    }
+    .edit-btn {
+      padding: 8px 18px;
+      background: #FF8300;
+      color: #232526;
+      border: none;
+      border-radius: 10px;
+      font-weight: bolder;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <h1>INTUITY</h1>
-      <h2>Intuitive & Immersive Learning</h2>
-      <div class="by">By Majid Nashtai</div>
-    </div>
-    <div class="controls">
-      <div class="mode-toggle">
-        <button class="btn" id="teacherBtn">Teacher Mode</button>
-        <button class="btn" id="studentBtn">Student Mode</button>
-      </div>
-    </div>
+    <h1>INTUITY</h1>
+    <div class="subtitle">Intuitive & Immersive Learning<br>By Majid Nashtai</div>
   </header>
-  <main>
-    <div class="left panel" id="teacherPanel">
-      <h3>Teacher Panel</h3>
-      <label for="personName">Name</label>
-      <input type="text" id="personName">
-      <label for="personAdj">Adjective</label>
-      <input type="text" id="personAdj">
-      <label for="personPhoto">Photo URL</label>
-      <input type="text" id="personPhoto">
-      <button class="btn" id="addPerson">Add Person</button>
-      <div class="people-list" id="peopleList"></div>
-    </div>
-    <div class="right">
-      <div class="grid" id="cardGrid"></div>
-    </div>
-  </main>
-  <footer>
-    <select id="adjectiveSelect">
-      <option value="">Select an adjective...</option>
-    </select>
-  </footer>
-<script>
-const people=[];
-const adjectives=[];
-const grid=document.getElementById('cardGrid');
-const select=document.getElementById('adjectiveSelect');
-const peopleList=document.getElementById('peopleList');
+  <div class="edit-mode" id="editMode" style="display:none;">
+    <button class="edit-btn" id="saveEdits">Save Changes</button>
+    <!-- Teacher editing interface placeholder -->
+  </div>
+  <div class="card-container" id="cardContainer">
+    <!-- Cards dynamically rendered by JavaScript -->
+  </div>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="arrows">
+    <div class="arrow" id="arrowPrev">&#8678;</div>
+    <div class="arrow" id="arrowNext">&#8680;</div>
+  </div>
+  <div class="adjectives" id="adjectivesBox">
+    <!-- Adjective options dynamically rendered here -->
+  </div>
 
-function renderCards(){
-  grid.innerHTML='';
-  people.forEach((p,i)=>{
-    const card=document.createElement('div');card.className='card';
-    card.innerHTML=`<div class="inner"><div class="face front"><img src="${p.photo}" class="avatar"><div class="name">${p.name}</div></div><div class="face back"><div class="reveal">${p.adjective}</div></div></div>`;
-    card.addEventListener('click',()=>{
-      const sel=select.value;
-      if(sel && sel===p.adjective){card.classList.add('flipped');}
-      else{card.classList.add('shake');setTimeout(()=>card.classList.remove('shake'),500)}
-    });
-    grid.appendChild(card);
-  });
-  updateDropdown();
-}
-function updateDropdown(){
-  select.innerHTML='<option value="">Select an adjective...</option>';
-  people.forEach(p=>{
-    if(!adjectives.includes(p.adjective)) adjectives.push(p.adjective);
-  });
-  adjectives.forEach(adj=>{
-    const opt=document.createElement('option');
-    opt.value=adj;opt.textContent=adj;select.appendChild(opt);
-  });
-}
-function renderList(){
-  peopleList.innerHTML='';
-  people.forEach((p,i)=>{
-    const item=document.createElement('div');item.className='person-item';
-    item.innerHTML=`<img src="${p.photo}"><div><div class="person-name">${p.name}</div><div class="person-meta">${p.adjective}</div></div>`;
-    peopleList.appendChild(item);
-  });
-}
-document.getElementById('addPerson').onclick=()=>{
-  const name=document.getElementById('personName').value.trim();
-  const adj=document.getElementById('personAdj').value.trim();
-  const photo=document.getElementById('personPhoto').value.trim();
-  if(name&&adj&&photo){
-    people.push({name,adjective:adj,photo});
-    renderCards();renderList();
-    document.getElementById('personName').value='';
-    document.getElementById('personAdj').value='';
-    document.getElementById('personPhoto').value='';
-  }
-};
-renderCards();
-</script>
+  <script>
+    // Sample card data (names, adjectives, image placeholders)
+    const cards = [
+      {name: "Nelson Mandela", adjective: "resilient", photo: "mandela.jpg"},
+      {name: "Taylor Swift", adjective: "talented", photo: "swift.jpg"},
+      {name: "Winston Churchill", adjective: "articulate", photo: "churchill.jpg"},
+      {name: "Steve Jobs", adjective: "innovative", photo: "jobs.jpg"},
+      {name: "Malala Yousafzai", adjective: "fearless", photo: "malala.jpg"},
+      {name: "Leonardo da Vinci", adjective: "visionary", photo: "davinci.jpg"},
+      {name: "Mother Teresa", adjective: "compassionate", photo: "teresa.jpg"},
+      {name: "Albert Einstein", adjective: "brilliant", photo: "einstein.jpg"},
+      {name: "Rosa Parks", adjective: "courageous", photo: "parks.jpg"},
+      {name: "Thomas Edison", adjective: "determined", photo: "edison.jpg"},
+      {name: "Martin Luther King Jr.", adjective: "charismatic", photo: "mlk.jpg"},
+      {name: "Serena Williams", adjective: "disciplined", photo: "serena.jpg"},
+      {name: "Elon Musk", adjective: "visionary", photo: "musk.jpg"},
+      {name: "Oprah Winfrey", adjective: "compassionate", photo: "oprah.jpg"},
+      {name: "Marie Curie", adjective: "curious", photo: "curie.jpg"},
+      {name: "Amelia Earhart", adjective: "fearless", photo: "earhart.jpg"},
+      {name: "Jane Goodall", adjective: "thoughtful", photo: "goodall.jpg"},
+      {name: "Pablo Picasso", adjective: "creative", photo: "picasso.jpg"},
+      {name: "Mahatma Gandhi", adjective: "humble", photo: "gandhi.jpg"},
+      {name: "Buddha", adjective: "wise", photo: "buddha.jpg"},
+      {name: "Melinda Gates", adjective: "generous", photo: "gates.jpg"},
+      {name: "William Shakespeare", adjective: "expressive", photo: "shakespeare.jpg"},
+      {name: "Misty Copeland", adjective: "graceful", photo: "copeland.jpg"},
+      {name: "Frida Kahlo", adjective: "daring", photo: "kahlo.jpg"}
+      // Add image filenames as needed or keep as placeholder for teacher input
+    ];
+
+    // Main state
+    let current = 0;
+    let editMode = false;
+
+    // Initial render
+    function renderCard() {
+      const cardData = cards[current];
+      document.getElementById("cardContainer").innerHTML = `
+        <div class="card" tabindex="0">
+          <img class="photo" src="${cardData.photo}" alt="${cardData.name}" onerror="this.src='https://placehold.co/78x78?text=+'"/>
+          <div class="name">${cardData.name}</div>
+        </div>`;
+      renderAdjectives();
+      updateDots();
+    }
+
+    // Randomize 3 distractors and shuffle choices
+    function renderAdjectives() {
+      const corr = cards[current].adjective;
+      let distractors = [];
+      while (distractors.length < 3) {
+        const adj = cards[Math.floor(Math.random() * cards.length)].adjective;
+        if (adj !== corr && !distractors.includes(adj)) distractors.push(adj);
+      }
+      const choices = [corr, ...distractors].sort(() => Math.random() - 0.5);
+      let html = '';
+      for (let word of choices) {
+        html += `<div class="adjective" onclick="chooseAdjective('${word}')">${word}</div>`;
+      }
+      document.getElementById("adjectivesBox").innerHTML = html;
+    }
+
+    window.chooseAdjective = function(word) {
+      const adjectives = document.querySelectorAll('.adjective');
+      adjectives.forEach(adj => {
+        if (adj.innerText === word) {
+          if (word === cards[current].adjective) {
+            adj.classList.add('correct');
+            flipCurrentCard();
+          } else {
+            adj.classList.add('wrong');
+          }
+        } else {
+          adj.style.pointerEvents = 'none';
+        }
+      });
+    }
+
+    function flipCurrentCard() {
+      document.querySelector('.card').classList.add('flipped');
+      setTimeout(() => {
+        if (current < cards.length - 1) {
+          nextCard();
+        } // Optionally, show a 'completed' message after the last card
+      }, 850);
+    }
+
+    function updateDots() {
+      let html = '';
+      for (let i = 0; i < cards.length; i++) {
+        html += `<div class="dot${i === current ? ' active' : ''}" onclick="goToCard(${i})"></div>`;
+      }
+      document.getElementById("navDots").innerHTML = html;
+    }
+
+    window.goToCard = function(idx) {
+      current = idx;
+      renderCard();
+    }
+
+    function prevCard() {
+      if (current === 0) return;
+      current -= 1;
+      renderCard();
+    }
+    function nextCard() {
+      if (current < cards.length - 1) current += 1;
+      renderCard();
+    }
+
+    document.getElementById("arrowPrev").onclick = prevCard;
+    document.getElementById("arrowNext").onclick = nextCard;
+
+    // Teacher edit button (placeholder)
+    // Implement editing and photo input as needed
+    /*
+    document.getElementById("editBtn").onclick = function() {
+      editMode = !editMode;
+      document.getElementById("editMode").style.display = editMode ? 'block' : 'none';
+    }
+    */
+
+    renderCard();
+  </script>
 </body>
 </html>
